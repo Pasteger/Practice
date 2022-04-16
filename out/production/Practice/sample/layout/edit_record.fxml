@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #e28b00;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ControllerEditRecord">
+   <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #bcbcbc;">
+      <Button fx:id="cancelButton" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="106.0" style="-fx-background-color: #e28b00;" text="Отмена" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="applyButton" layoutX="680.0" layoutY="553.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="106.0" style="-fx-background-color: #e28b00;" text="Применить" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="236.0" layoutY="554.0" prefHeight="37.0" prefWidth="329.0" style="-fx-background-color: #bcbcbc;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="66.0" prefWidth="800.0" style="-fx-background-color: #e28b00;" text="Турагенство" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutY="66.0" prefHeight="30.0" prefWidth="800.0" style="-fx-background-color: #e28b00;" text="Добавить запись" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+   </AnchorPane>
+   <TextField fx:id="typeTextField" layoutX="182.0" layoutY="191.0" prefHeight="44.0" prefWidth="459.0" promptText="Тип" style="-fx-background-color: #d9d0d8;">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="priceTextField" layoutX="181.0" layoutY="246.0" prefHeight="44.0" prefWidth="459.0" promptText="Цена" style="-fx-background-color: #d9d0d8;">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="dateTextField" layoutX="181.0" layoutY="297.0" prefHeight="44.0" prefWidth="459.0" promptText="Дата" style="-fx-background-color: #d9d0d8;">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" layoutX="182.0" layoutY="403.0" prefHeight="160.0" prefWidth="459.0" promptText="Описание" style="-fx-background-color: #d9d0d8;">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="nameTextField" layoutX="181.0" layoutY="136.0" prefHeight="44.0" prefWidth="459.0" promptText="Название" style="-fx-background-color: #d9d0d8;">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="durationTextField" layoutX="181.0" layoutY="350.0" prefHeight="44.0" prefWidth="459.0" promptText="Длительность" style="-fx-background-color: #d9d0d8;">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </TextField>
+</AnchorPane>

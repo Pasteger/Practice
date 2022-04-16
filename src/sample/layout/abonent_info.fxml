@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ControllerAbonentInfo">
+   <children>
+      <Label prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Номер абонента ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="24.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="ФИО">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="48.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Серия паспорта">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="72.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Номер паспорта">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="96.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Дата выдачи">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="120.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Кем выдан">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="144.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Номер договора">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="168.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Дата заключения договора">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Label>
+      <Label layoutY="192.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Тип договора">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="216.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Дата расторжения">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="240.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Причина расторжения">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutY="264.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Лицевой счёт">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="288.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Адрес">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="312.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Услуги">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="336.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="Оборудование">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutY="360.0" prefHeight="24.0" prefWidth="112.0" style="-fx-background-color: #dadada;" text="История обращений">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberLabel" layoutX="112.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameLabel" layoutX="112.0" layoutY="24.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="passportSeriesLabel" layoutX="112.0" layoutY="48.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="passportNumberLabel" layoutX="112.0" layoutY="72.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateOfIssueLabel" layoutX="112.0" layoutY="96.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="issuedByLabel" layoutX="112.0" layoutY="120.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="contractNumberLabel" layoutX="112.0" layoutY="144.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateOfConclusionOfTheContractLabel" layoutX="112.0" layoutY="168.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="typeContractLabel" layoutX="112.0" layoutY="192.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateOfTerminationOfTheContractLabel" layoutX="112.0" layoutY="216.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="reasonForTerminationOfTheContractLabel" layoutX="112.0" layoutY="240.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="personalAccountLabel" layoutX="112.0" layoutY="264.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;" text=" ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="addressLabel" layoutX="112.0" layoutY="288.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="servicesLabel" layoutX="112.0" layoutY="312.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="serialNumberOfTheEquipmentLabel" layoutX="112.0" layoutY="336.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="historyLabel" layoutX="112.0" layoutY="360.0" prefHeight="24.0" prefWidth="560.0" style="-fx-background-color: #dadada;">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
