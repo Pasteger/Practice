@@ -1,27 +1,22 @@
 package sample.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import java.sql.SQLException;
+import javafx.scene.Parent;
+import java.io.IOException;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.database.AbonentsData;
-import sample.database.DatabaseHandler;
-import sample.database.StaffData;
-import sample.database.User;
+import sample.database.*;
+import javafx.fxml.FXML;
+import java.io.File;
+import java.util.*;
 
 public class ControllerDesktop {
     @FXML private AnchorPane verticalMenuWideAnchorPane;
@@ -45,8 +40,8 @@ public class ControllerDesktop {
     @FXML private Button billingButton;
     @FXML private Button supportUsersButton;
     @FXML private Button crmButton;
-    @FXML private Button questionButton;
-    @FXML private Button questionButton1;
+    @FXML private Button questionButtonWide;
+    @FXML private Button questionButtonNarrow;
     @FXML private Button expandButton;
     @FXML private Button wrapButton;
 
@@ -78,6 +73,14 @@ public class ControllerDesktop {
     @FXML private Label dateCreateRequestLabel;
     @FXML private Label personalAccountLabel;
     @FXML private Label numberAbonentLabel;
+    @FXML private Label equipmentTypeLabel;
+    @FXML private Label problemTypeLabel;
+    @FXML private Label problemDescriptionLabel;
+    @FXML private Label closeDateLabel;
+    @FXML private Label serviceLabel;
+    @FXML private Label serviceStatusLabel;
+    @FXML private Label genusServiceLabel;
+    @FXML private Label serviceTypeLabel;
 
     @FXML private TextField findByNameTextField;
     @FXML private TextField findByTelephoneNumberTextField;
@@ -85,6 +88,10 @@ public class ControllerDesktop {
     @FXML private TextField dateCreateRequestTextField;
     @FXML private TextField numberAbonentTextField;
     @FXML private TextField personalAccountTextField;
+    @FXML private TextField equipmentTypeTextField;
+    @FXML private TextField problemTypeTextField;
+    @FXML private TextField problemDescriptionTextField;
+    @FXML private TextField closeDateTextField;
 
     @FXML private Button findAbonentButton;
     @FXML private Button cancelCreateRequestButton;
@@ -92,6 +99,20 @@ public class ControllerDesktop {
 
     @FXML private ComboBox<String> serviceComboBox;
     @FXML private ComboBox<String> serviceStatusComboBox;
+    @FXML private ComboBox<String> serviceGenusComboBox;
+    @FXML private ComboBox<String> serviceTypeComboBox;
+
+    ObservableList<String> services = FXCollections.observableArrayList(
+            "Интернет", "Мобильная связь", "Телевидение", "Видеонаблюдение");
+    ObservableList<String> serviceStatus = FXCollections.observableArrayList(
+            "Новая", "Требует выезда", "Закрыта");
+    ObservableList<String> serviceGenus = FXCollections.observableArrayList(
+            "Подключение", "Управление договором/контактными данными", "Управление тарифом/услугой",
+            "Диагностика и настройка оборудования/подключения", "Оплата услуг");
+
+    Map<String, ObservableList<String>> servicesTypeByServicesGenus = new HashMap<>();
+
+    Calendar calendar = new GregorianCalendar();
 
     AbonentsData abonentForCRM;
 
@@ -141,7 +162,7 @@ public class ControllerDesktop {
         personalAccountTC.setCellValueFactory(new PropertyValueFactory<>("personalAccount"));
         servicesTC.setCellValueFactory(new PropertyValueFactory<>("services"));
 
-        updateTable("SELECT * FROM abonents");
+        updateAbonentsTable("SELECT * FROM abonents");
 
         //Combo box
         try {
@@ -195,42 +216,69 @@ public class ControllerDesktop {
         activeCheckBox.setOnAction(actionEvent -> {
             if(insertNotActiveAbonents && !insertActiveAbonents){
                 insertActiveAbonents = true;
-                updateTable("SELECT * FROM abonents");
+                updateAbonentsTable("SELECT * FROM abonents");
             }
             else if (insertNotActiveAbonents){
                 insertActiveAbonents = false;
-                updateTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract != ''");
+                updateAbonentsTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract != ''");
             }
             else if (!insertActiveAbonents){
                 insertActiveAbonents = true;
-                updateTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract = ''");
+                updateAbonentsTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract = ''");
             }
             else {
                 insertActiveAbonents = false;
-                updateTable("SELECT * FROM abonents");
+                updateAbonentsTable("SELECT * FROM abonents");
             }
         });
         notActiveCheckBox.setOnAction(actionEvent -> {
             if(insertNotActiveAbonents && !insertActiveAbonents){
                 insertNotActiveAbonents = false;
-                updateTable("SELECT * FROM abonents");
+                updateAbonentsTable("SELECT * FROM abonents");
             }
             else if (insertNotActiveAbonents){
                 insertNotActiveAbonents = false;
-                updateTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract = ''");
+                updateAbonentsTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract = ''");
             }
             else if (!insertActiveAbonents){
                 insertNotActiveAbonents = true;
-                updateTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract != ''");
+                updateAbonentsTable("SELECT * FROM abonents WHERE DateOfTerminationOfTheContract != ''");
             }
             else {
                 insertNotActiveAbonents = true;
-                updateTable("SELECT * FROM abonents");
+                updateAbonentsTable("SELECT * FROM abonents");
             }
         });
 
 
         //CRM workspace
+        //Preparation for serviceTypeComboBox
+        servicesTypeByServicesGenus.put("Подключение",
+                FXCollections.observableArrayList(
+                        "Подключение услуг с новой инфраструктурой",
+                        "Подключение услуг на существующей инфраструктуре"));
+        servicesTypeByServicesGenus.put("Управление договором/контактными данными",
+                FXCollections.observableArrayList(
+                        "Изменение условий договора",
+                        "Включение в договор дополнительной услуги",
+                        "Изменение контактных данных"));
+        servicesTypeByServicesGenus.put("Управление тарифом/услугой",
+                FXCollections.observableArrayList(
+                        "Изменение тарифа",
+                        "Изменение адреса предоставления услуг",
+                        "Отключение услуги",
+                        "Приостановка предоставления услуги"));
+        servicesTypeByServicesGenus.put("Диагностика и настройка оборудования/подключения",
+                FXCollections.observableArrayList(
+                        "Нет доступа к услуге",
+                        "Разрыв соединения",
+                        "Низкая скорость соединения"));
+        servicesTypeByServicesGenus.put("Оплата услуг",
+                FXCollections.observableArrayList(
+                        "Выписка по платежам",
+                        "Информация о платежах",
+                        "Получение квитанции на оплату услуги"));
+
         //Find abonent
         findAbonentButton.setOnAction(actionEvent -> {
             try {
@@ -251,6 +299,10 @@ public class ControllerDesktop {
                 findByNameTextField.setDisable(true);
                 personalAccountTextField.setVisible(true);
                 numberAbonentTextField.setVisible(true);
+                equipmentTypeTextField.setVisible(true);
+                problemTypeTextField.setVisible(true);
+                problemDescriptionTextField.setVisible(true);
+                closeDateTextField.setVisible(true);
 
                 telephoneNumberLabel.setVisible(true);
                 nameLabel.setVisible(true);
@@ -258,15 +310,34 @@ public class ControllerDesktop {
                 dateCreateRequestLabel.setVisible(true);
                 personalAccountLabel.setVisible(true);
                 numberAbonentLabel.setVisible(true);
+                equipmentTypeLabel.setVisible(true);
+                problemTypeLabel.setVisible(true);
+                problemDescriptionLabel.setVisible(true);
+                closeDateLabel.setVisible(true);
+                serviceLabel.setVisible(true);
+                serviceStatusLabel.setVisible(true);
+                genusServiceLabel.setVisible(true);
+                serviceTypeLabel.setVisible(true);
 
                 serviceComboBox.setVisible(true);
                 serviceStatusComboBox.setVisible(true);
+                serviceGenusComboBox.setVisible(true);
+                serviceTypeComboBox.setVisible(true);
 
                 setCRMComboBox();
-                generateNumberRequest();
+                numberRequestTextField.setText(
+                        abonentForCRM.getPersonalAccount() + "/" +
+                        calendar.get(Calendar.DAY_OF_MONTH) + "/" +
+                                (calendar.get(Calendar.MONTH) > 9 ?
+                                calendar.get(Calendar.MONTH) : "0" + calendar.get(Calendar.MONTH)) + "/" +
+                                calendar.get(Calendar.YEAR));
+                dateCreateRequestTextField.setText(
+                        calendar.get(Calendar.DAY_OF_MONTH) + "." +
+                                (calendar.get(Calendar.MONTH) > 9 ?
+                                calendar.get(Calendar.MONTH) : "0" + calendar.get(Calendar.MONTH)) + "." +
+                                calendar.get(Calendar.YEAR));
                 personalAccountTextField.setText(abonentForCRM.getPersonalAccount());
                 numberAbonentTextField.setText(abonentForCRM.getNumber());
-                dateCreateRequestTextField.setText(new Date().toString());
             } catch (Exception exception) {
                 clearRequest();
 
@@ -275,57 +346,39 @@ public class ControllerDesktop {
         });
 
         cancelCreateRequestButton.setOnAction(actionEvent -> clearRequest());
+
+        applyCreateRequestButton.setOnAction(actionEvent -> {
+            try {
+                String number = numberRequestTextField.getText().trim();
+                String dateCreate = dateCreateRequestTextField.getText().trim();
+                String abonentNumber = numberAbonentTextField.getText().trim();
+                String personalAccount = personalAccountTextField.getText().trim();
+                String service = serviceComboBox.getValue();
+                String serviceStatus = serviceStatusComboBox.getValue();
+                String serviceGenus = serviceGenusComboBox.getValue();
+                String serviceType = serviceTypeComboBox.getValue();
+                String equipmentsType = equipmentTypeTextField.getText().trim();
+                String problemType = problemTypeTextField.getText().trim();
+                String problemDescription = problemDescriptionTextField.getText().trim();
+                String dateClose = closeDateTextField.getText().trim();
+                Request request = new Request(
+                        number, dateCreate, abonentNumber, personalAccount, service, serviceStatus, serviceGenus,
+                        serviceType, equipmentsType, problemType, problemDescription, dateClose);
+                if(databaseHandler.addRequest(request)){clearRequest();}
+                else {System.out.println("Add request error");}
+            }
+            catch (Exception ignored){}
+        });
+
+        serviceGenusComboBox.setOnAction(event -> {
+            String genus = serviceGenusComboBox.getValue();
+            ObservableList<String> types = servicesTypeByServicesGenus.get(genus);
+            serviceTypeComboBox.setItems(types);
+            serviceTypeComboBox.setValue(types.get(0));
+        });
     }
 
-    private void clearRequest(){
-        findByTelephoneNumberTextField.setText("");
-        findByNameTextField.setText("");
-        numberRequestTextField.setText("");
-        dateCreateRequestTextField.setText("");
-        numberAbonentTextField.setText("");
-        personalAccountTextField.setText("");
-
-        findByTelephoneNumberTextField.setDisable(false);
-        findByNameTextField.setDisable(false);
-
-        findAbonentButton.setVisible(true);
-        cancelCreateRequestButton.setVisible(false);
-        applyCreateRequestButton.setVisible(false);
-
-        numberRequestTextField.setVisible(false);
-        dateCreateRequestTextField.setVisible(false);
-        personalAccountTextField.setVisible(false);
-        numberAbonentTextField.setVisible(false);
-
-        telephoneNumberLabel.setVisible(false);
-        nameLabel.setVisible(false);
-        numberRequestLabel.setVisible(false);
-        dateCreateRequestLabel.setVisible(false);
-        personalAccountLabel.setVisible(false);
-        numberAbonentLabel.setVisible(false);
-
-        serviceComboBox.setVisible(false);
-        serviceStatusComboBox.setVisible(false);
-    }
-
-    private void setCRMComboBox(){
-        ObservableList<String> services = FXCollections.observableArrayList(
-                "Интернет", "Мобильная связь", "Телевидение", "Видеонаблюдение");
-        serviceComboBox.setItems(services);
-        serviceComboBox.setValue("Интернет");
-
-        ObservableList<String> serviceStatus = FXCollections.observableArrayList(
-                "Новая", "Требует выезда", "Закрыта");
-        serviceStatusComboBox.setItems(serviceStatus);
-        serviceStatusComboBox.setValue("Новая");
-    }
-
-    private void generateNumberRequest(){
-        String date = new Date().toString().replaceAll("\\D", "");
-        String numberRequest = abonentForCRM.getPersonalAccount() + date;
-        numberRequestTextField.setText(numberRequest);
-    }
-
+    //Common methods
     private void showAnchorPane(String id){
         switch (id) {
             case "abonentsAnchorPane" -> {
@@ -376,36 +429,6 @@ public class ControllerDesktop {
                 supportUsersAnchorPane.setVisible(false);
                 crmAnchorPane.setVisible(true);
             }
-        }
-    }
-
-    private void setAvatarImage() {
-        File file;
-        Image image;
-        try {
-            file = new File("src\\resourses\\images\\avatars\\" + User.getId() + ".jpg");
-            image = new Image(file.toURI().toString());
-            if (image.getHeight() == 0.0) {
-                file = new File("src\\resourses\\images\\avatars\\" + User.getId() + ".png");
-                image = new Image(file.toURI().toString());
-                if (image.getHeight() == 0.0) {
-                    file = new File("src\\resourses\\images\\avatars\\" + User.getId() + ".jfif");
-                    image = new Image(file.toURI().toString());
-                    if (image.getHeight() == 0.0) {
-                        file = new File("src\\resourses\\images\\avatars\\unknown.jpg");
-                        image = new Image(file.toURI().toString());
-                    }
-                }
-            }
-            userAvatarImageView.setImage(image);
-        } catch (Exception exception) {System.out.println("Не удалось поставить аватарку");}
-    }
-
-    private void updateTable(String select){
-        try {
-            abonentsTable.setItems(databaseHandler.returnAbonents(select));
-        } catch (SQLException | ClassNotFoundException throwable) {
-            throwable.printStackTrace();
         }
     }
 
@@ -499,19 +522,35 @@ public class ControllerDesktop {
         }
     }
 
-    private void openOtherWindow(String window){
-        abonentsButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(window));
+    //Abonents workspace methods
+    private void updateAbonentsTable(String select){
         try {
-            loader.load();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            abonentsTable.setItems(databaseHandler.returnAbonents(select));
+        } catch (SQLException | ClassNotFoundException throwable) {
+            throwable.printStackTrace();
         }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    }
+
+    private void setAvatarImage() {
+        File file;
+        Image image;
+        try {
+            file = new File("src\\resources\\images\\avatars\\" + User.getId() + ".jpg");
+            image = new Image(file.toURI().toString());
+            if (image.getHeight() == 0.0) {
+                file = new File("src\\resources\\images\\avatars\\" + User.getId() + ".png");
+                image = new Image(file.toURI().toString());
+                if (image.getHeight() == 0.0) {
+                    file = new File("src\\resources\\images\\avatars\\" + User.getId() + ".jfif");
+                    image = new Image(file.toURI().toString());
+                    if (image.getHeight() == 0.0) {
+                        file = new File("src\\resources\\images\\avatars\\unknown.jpg");
+                        image = new Image(file.toURI().toString());
+                    }
+                }
+            }
+            userAvatarImageView.setImage(image);
+        } catch (Exception exception) {System.out.println("Не удалось поставить аватарку");}
     }
 
     private void openAbonentInfoWindow(){
@@ -526,5 +565,67 @@ public class ControllerDesktop {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    //CRM workspace methods
+    private void clearRequest(){
+        findByTelephoneNumberTextField.setText("");
+        findByNameTextField.setText("");
+        numberRequestTextField.setText("");
+        dateCreateRequestTextField.setText("");
+        numberAbonentTextField.setText("");
+        personalAccountTextField.setText("");
+
+        findByTelephoneNumberTextField.setDisable(false);
+        findByNameTextField.setDisable(false);
+
+        findAbonentButton.setVisible(true);
+        cancelCreateRequestButton.setVisible(false);
+        applyCreateRequestButton.setVisible(false);
+
+        numberRequestTextField.setVisible(false);
+        dateCreateRequestTextField.setVisible(false);
+        personalAccountTextField.setVisible(false);
+        numberAbonentTextField.setVisible(false);
+        equipmentTypeTextField.setVisible(false);
+        problemTypeTextField.setVisible(false);
+        problemDescriptionTextField.setVisible(false);
+        closeDateTextField.setVisible(false);
+
+        telephoneNumberLabel.setVisible(false);
+        nameLabel.setVisible(false);
+        numberRequestLabel.setVisible(false);
+        dateCreateRequestLabel.setVisible(false);
+        personalAccountLabel.setVisible(false);
+        numberAbonentLabel.setVisible(false);
+        equipmentTypeLabel.setVisible(false);
+        problemTypeLabel.setVisible(false);
+        problemDescriptionLabel.setVisible(false);
+        closeDateLabel.setVisible(false);
+        serviceLabel.setVisible(false);
+        serviceStatusLabel.setVisible(false);
+        genusServiceLabel.setVisible(false);
+        serviceTypeLabel.setVisible(false);
+
+        serviceComboBox.setVisible(false);
+        serviceStatusComboBox.setVisible(false);
+        serviceGenusComboBox.setVisible(false);
+        serviceTypeComboBox.setVisible(false);
+    }
+
+    private void setCRMComboBox(){
+        serviceComboBox.setItems(services);
+        serviceComboBox.setValue(services.get(0));
+
+        serviceStatusComboBox.setItems(serviceStatus);
+        serviceStatusComboBox.setValue(serviceStatus.get(0));
+
+        serviceGenusComboBox.setItems(serviceGenus);
+        serviceGenusComboBox.setValue(serviceGenus.get(0));
+
+        String genus = serviceGenusComboBox.getValue();
+        ObservableList<String> types = servicesTypeByServicesGenus.get(genus);
+        serviceTypeComboBox.setItems(types);
+        serviceTypeComboBox.setValue(types.get(0));
     }
 }

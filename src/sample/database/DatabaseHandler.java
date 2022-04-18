@@ -4,11 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 
-//Этот класс отвечает за взаимодействует с базой данных
 public class DatabaseHandler extends Configs{
     Connection dbConnection;
 
-    //В этом методе происходит подключение к БД
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -126,64 +124,24 @@ public class DatabaseHandler extends Configs{
         return requestsObservableList;
     }
 
-
-    /*public void updateRecord(AbonentsData abonentsData) throws SQLException, ClassNotFoundException {
-        String update = "UPDATE travel set " +
-                "name = \"" + abonentsData.getName() +
-                "\", type = \"" + abonentsData.getType() +
-                "\", price = \"" + abonentsData.getPrice() +
-                "\", date = \"" + abonentsData.getDate() +
-                "\", duration = \"" + abonentsData.getDuration() +
-                "\", description = \"" + abonentsData.getDescription() +
-                "\" WHERE (id = " + User.getEditedRecordId() + ")";
-        PreparedStatement preparedStatement = getDbConnection().prepareStatement(update);
-        preparedStatement.executeUpdate();
-    }
-
-    public void addRecord(AbonentsData abonentsData) throws SQLException, ClassNotFoundException {
-        String insert = "INSERT INTO travel " +
-                "(name, type, price, date, duration, description) " +
-                "VALUES ('" + abonentsData.getName() + "', '" + abonentsData.getType() + "', '" +
-                abonentsData.getPrice() + "', '" + abonentsData.getDate() + "', '" +
-                abonentsData.getDuration() + "', '" + abonentsData.getDescription() + "');";
-        PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-        preparedStatement.executeUpdate();
-    }*/
-
-    public Boolean returnRole(String username) throws SQLException, ClassNotFoundException {
-        String select = "SELECT role FROM users WHERE username =\"" + username + "\"";
-
-        Statement statement = getDbConnection().createStatement();
-
-        ResultSet resultSet = statement.executeQuery(select);
-        resultSet.next();
-
-        return resultSet.getBoolean(1);
-    }
-
-    public void deleteRecord(int id){
+    public boolean addRequest(Request request){
         try {
-            String select = "DELETE FROM travel WHERE id = \"" + id + "\"";
-            getDbConnection().prepareStatement(select).executeUpdate();
+            String insert = "INSERT INTO requests" +
+                    "(NumberRequest, CreateDate, PersonalAccount, Service, ServiceStatus, ServiceGenus, ServiceType, " +
+                    "EquipmentsType, ProblemType, ProblemDescription, CloseDate, AbonentNumber) " +
+                    "VALUES ('" +
+                    request.getNumber() + "', '" + request.getDateCreate() + "', '" +
+                    request.getPersonalAccount() + "', '" + request.getService() + "', '" +
+                    request.getServiceStatus() + "', '" + request.getServiceGenus() + "', '" +
+                    request.getServiceType() + "', '" + request.getEquipmentsType() + "', '" +
+                    request.getProblemType() + "', '" + request.getProblemDescription() + "', '" +
+                    request.getDateClose() + "', '" + request.getAbonentNumber() + "');";
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+            preparedStatement.executeUpdate();
+            return true;
         }
-        catch (Exception ignored){}
-    }
-
-    /*public void addRequests(int idTravel, String username) throws SQLException, ClassNotFoundException {
-        String insert = "INSERT INTO requests " +
-                "(id_travel, username) " +
-                "VALUES ('" + idTravel + "', '" + username + "');";
-        PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-        preparedStatement.executeUpdate();
-    }
-
-
-
-    public void deleteRequest(int id){
-        try {
-            String select = "DELETE FROM requests WHERE id = \"" + id + "\"";
-            getDbConnection().prepareStatement(select).executeUpdate();
+        catch (Exception exception){
+            return false;
         }
-        catch (Exception ignored){}
-    }*/
+    }
 }

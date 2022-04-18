@@ -56,7 +56,7 @@
             <Label fx:id="telephoneNumberLabel" layoutX="196.0" layoutY="125.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Номер телефона" visible="false" />
             <Label fx:id="nameLabel" layoutX="379.0" layoutY="125.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   ФИО" visible="false" />
             <Label fx:id="numberRequestLabel" layoutX="196.0" layoutY="191.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Номер заявки" visible="false" />
-            <Button fx:id="cancelCreateRequestButton" layoutX="137.0" layoutY="561.0" mnemonicParsing="false" style="-fx-background-radius: 0; -fx-background-color: #e0e0e0;" text="Отмена" visible="false" />
+            <Button fx:id="cancelCreateRequestButton" layoutX="129.0" layoutY="559.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="58.0" style="-fx-background-radius: 0; -fx-background-color: #e0e0e0;" text="Отмена" visible="false" />
             <TextField fx:id="dateCreateRequestTextField" disable="true" layoutX="379.0" layoutY="216.0" promptText="Дата создания" style="-fx-background-radius: 0;" visible="false" />
             <Label fx:id="dateCreateRequestLabel" layoutX="379.0" layoutY="191.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Дата создания" visible="false" />
             <TextField fx:id="numberAbonentTextField" disable="true" layoutX="196.0" layoutY="286.0" prefHeight="24.0" prefWidth="149.0" promptText="Номер абонента" style="-fx-background-radius: 0;" visible="false">
@@ -71,9 +71,39 @@
                </font>
             </TextField>
             <Label fx:id="personalAccountLabel" layoutX="379.0" layoutY="262.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Лицевой счёт" visible="false" />
-            <ComboBox fx:id="serviceComboBox" layoutX="196.0" layoutY="328.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 0; -fx-background-color: #f2f2f2;" visible="false" />
-            <ComboBox fx:id="serviceStatusComboBox" layoutX="379.0" layoutY="328.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 0; -fx-background-color: #f2f2f2;" visible="false" />
-            <Button fx:id="applyCreateRequestButton" layoutX="555.0" layoutY="561.0" mnemonicParsing="false" style="-fx-background-radius: 0; -fx-background-color: #e0e0e0;" text="Отправить" visible="false" />
+            <ComboBox fx:id="serviceComboBox" layoutX="197.0" layoutY="355.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 0; -fx-background-color: #f2f2f2;" visible="false" />
+            <ComboBox fx:id="serviceStatusComboBox" layoutX="380.0" layoutY="355.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 0; -fx-background-color: #f2f2f2;" visible="false" />
+            <Button fx:id="applyCreateRequestButton" layoutX="555.0" layoutY="559.0" mnemonicParsing="false" style="-fx-background-radius: 0; -fx-background-color: #e0e0e0;" text="Отправить" visible="false" />
+            <TextField fx:id="equipmentTypeTextField" layoutX="197.0" layoutY="492.0" prefHeight="24.0" prefWidth="149.0" promptText="Тип оборудования" style="-fx-background-radius: 0;" visible="false">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </TextField>
+            <Label fx:id="equipmentTypeLabel" layoutX="197.0" layoutY="467.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Тип оборудования" visible="false" />
+            <TextField fx:id="problemTypeTextField" layoutX="380.0" layoutY="493.0" prefHeight="24.0" prefWidth="149.0" promptText="Тип проблемы" style="-fx-background-radius: 0;" visible="false">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </TextField>
+            <Label fx:id="problemTypeLabel" layoutX="380.0" layoutY="468.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Тип проблемы" visible="false" />
+            <TextField fx:id="problemDescriptionTextField" layoutX="198.0" layoutY="561.0" prefHeight="24.0" prefWidth="149.0" promptText="Описание проблемы" style="-fx-background-radius: 0;" visible="false">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </TextField>
+            <Label fx:id="problemDescriptionLabel" layoutX="198.0" layoutY="536.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Описание проблемы" visible="false" />
+            <TextField fx:id="closeDateTextField" layoutX="381.0" layoutY="562.0" prefHeight="24.0" prefWidth="149.0" promptText="Дата закрытия" style="-fx-background-radius: 0;" visible="false">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </TextField>
+            <Label fx:id="closeDateLabel" layoutX="381.0" layoutY="537.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Дата закрытия" visible="false" />
+            <Label fx:id="serviceLabel" layoutX="196.0" layoutY="329.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Услуга" visible="false" />
+            <Label fx:id="serviceStatusLabel" layoutX="380.0" layoutY="329.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Статус услуги" visible="false" />
+            <Label fx:id="genusServiceLabel" layoutX="195.0" layoutY="400.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Вид услуги" visible="false" />
+            <Label fx:id="serviceTypeLabel" layoutX="378.0" layoutY="401.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #f2f2f2;" text="   Тип услуги" visible="false" />
+            <ComboBox fx:id="serviceGenusComboBox" layoutX="195.0" layoutY="426.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 0; -fx-background-color: #f2f2f2;" visible="false" />
+            <ComboBox fx:id="serviceTypeComboBox" layoutX="378.0" layoutY="426.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 0; -fx-background-color: #f2f2f2;" visible="false" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="verticalMenuWideAnchorPane" prefHeight="600.0" prefWidth="121.0">
@@ -108,7 +138,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="questionButton" layoutX="48.0" layoutY="552.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" style="-fx-background-color: #c6c6c6; -fx-background-radius: 50;" text="?">
+            <Button fx:id="questionButtonWide" layoutX="48.0" layoutY="552.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" style="-fx-background-color: #c6c6c6; -fx-background-radius: 50;" text="?">
                <font>
                   <Font size="15.0" />
                </font>
@@ -120,14 +150,14 @@
             </Button>
             <ImageView fitHeight="81.0" fitWidth="102.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/logo.jpg" />
+                  <Image url="@../../resources/images/logo.jpg" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="verticalMenuNarrowAnchorPane" prefHeight="600.0" prefWidth="69.0" visible="false">
          <children>
-            <Button fx:id="questionButton1" layoutX="6.0" layoutY="552.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" style="-fx-background-color: #c6c6c6; -fx-background-radius: 50;" text="?">
+            <Button fx:id="questionButtonNarrow" layoutX="6.0" layoutY="552.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" style="-fx-background-color: #c6c6c6; -fx-background-radius: 50;" text="?">
                <font>
                   <Font size="15.0" />
                </font>
@@ -139,37 +169,37 @@
             </Button>
             <ImageView fitHeight="44.0" fitWidth="55.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/logo.jpg" />
+                  <Image url="@../../resources/images/logo.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="abonentsImageView" fitHeight="44.0" fitWidth="55.0" layoutX="7.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/vertical_menu/abonents.png" />
+                  <Image url="@../../resources/images/vertical_menu/abonents.png" />
                </image>
             </ImageView>
             <ImageView fx:id="controlDevisesImageView" fitHeight="42.0" fitWidth="55.0" layoutX="6.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/vertical_menu/control_devises.jpg" />
+                  <Image url="@../../resources/images/vertical_menu/control_devises.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="activesImageView" fitHeight="44.0" fitWidth="55.0" layoutX="10.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/vertical_menu/actives.png" />
+                  <Image url="@../../resources/images/vertical_menu/actives.png" />
                </image>
             </ImageView>
             <ImageView fx:id="billingImageView" fitHeight="44.0" fitWidth="55.0" layoutX="7.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/vertical_menu/billing.jpg" />
+                  <Image url="@../../resources/images/vertical_menu/billing.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="supportUsersImageView" fitHeight="44.0" fitWidth="55.0" layoutX="6.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/vertical_menu/support_users.jpg" />
+                  <Image url="@../../resources/images/vertical_menu/support_users.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="crmImageView" fitHeight="44.0" fitWidth="55.0" layoutX="7.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resourses/images/vertical_menu/crm.png" />
+                  <Image url="@../../resources/images/vertical_menu/crm.png" />
                </image>
             </ImageView>
          </children>
